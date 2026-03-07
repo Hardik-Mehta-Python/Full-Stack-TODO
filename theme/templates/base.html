@@ -1,0 +1,30 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TickMark</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+</head>
+
+<body class="bg-slate-50 font-sans antialiased">
+    
+    <div class="flex min-h-screen">
+        
+        <div class="w-64 fixed inset-y-0 left-0 z-50">
+            {% include 'nav.html' %}
+        </div>
+
+        <main class="flex-1 ml-64 min-h-screen p-8">
+            <div class="max-w-5xl mx-auto">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+        
+    </div>
+
+</body>
+</html>
