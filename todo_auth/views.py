@@ -111,5 +111,4 @@ def reset_password(request):
             return render(request,'reset_password.html',{'error':'Password Incorrect'})
     return render(request,'reset_password.html')
 
-def forgot(request):
-    return render(request,'forgot.html')
+
