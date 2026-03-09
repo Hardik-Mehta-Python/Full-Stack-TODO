@@ -93,3 +93,23 @@ def logout_(request):
     logout(request)
 
     return redirect('login')
+
+def reset_password(request):
+    user = request.user
+    if request.method == "POST":
+        cPasw = request.POST['cPasw']
+        nPasw = request.POST['nPasw']
+        confirmPasw = request.POST['confirmPasw']
+        
+        if user.check_password(cPasw):
+            if nPasw == confirmPasw:
+                user.set_password(nPasw) 
+                user.save()
+                return redirect('login') 
+            else: return render(request,'reset_password.html',{'error':'Password Not Match'}) 
+        else:
+            return render(request,'reset_password.html',{'error':'Password Incorrect'})
+    return render(request,'reset_password.html')
+
+def forgot(request):
+    return render(request,'forgot.html')

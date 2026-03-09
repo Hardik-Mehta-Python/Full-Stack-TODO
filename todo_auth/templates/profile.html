@@ -2,11 +2,9 @@
 
 {% block content %}
 <div class="max-w-4xl mx-auto">
-    <div class="mb-8 flex justify-between items-end">
-        <div>
-            <h1 class="text-3xl font-bold text-slate-800 tracking-tight">My Profile</h1>
-            <p class="text-slate-500">Your account overview and productivity statistics.</p>
-        </div>
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">My Profile</h1>
+        <p class="text-slate-500">Your account overview and productivity statistics.</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -41,7 +39,7 @@
                     <div class="bg-gradient-to-r from-indigo-500 to-emerald-500 h-3 rounded-full transition-all duration-1000" 
                          style="width: {{ completion_percentage }}%"></div>
                 </div>
-                <p class="text-[11px] text-slate-400 italic">You have <strong>{{ pending_task }}</strong> tasks remaining to reach 100%.</p>
+                <p class="text-[11px] text-slate-400 italic">You have <strong>{{ pending_task }}</strong> tasks remaining.</p>
             </div>
         </div>
 
@@ -57,30 +55,15 @@
                 <div class="p-8 space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <p class="text-sm font-semibold text-slate-500 mb-1">First Name</p>
+                            <p class="text-sm font-semibold text-slate-500 mb-1">Full Name</p>
                             <div class="px-4 py-3 rounded-xl bg-slate-50 text-slate-800 font-medium border border-slate-100">
-                                {{ user.first_name|default:"Not Provided" }}
+                                {{ user.get_full_name|default:user.username }}
                             </div>
                         </div>
-                        <div>
-                            <p class="text-sm font-semibold text-slate-500 mb-1">Last Name</p>
-                            <div class="px-4 py-3 rounded-xl bg-slate-50 text-slate-800 font-medium border border-slate-100">
-                                {{ user.last_name|default:"Not Provided" }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <p class="text-sm font-semibold text-slate-500 mb-1">Email Address</p>
                             <div class="px-4 py-3 rounded-xl bg-slate-50 text-slate-800 font-medium border border-slate-100 truncate">
                                 {{ user.email }}
-                            </div>
-                        </div>
-                        <div>
-                            <p class="text-sm font-semibold text-slate-500 mb-1">Username</p>
-                            <div class="px-4 py-3 rounded-xl bg-slate-50 text-slate-800 font-medium border border-slate-100">
-                                {{ user.username }}
                             </div>
                         </div>
                     </div>
@@ -93,18 +76,32 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="text-sm font-bold text-indigo-900">Pending Tasks</p>
-                                <p class="text-xs text-indigo-700">You currently have work to finish.</p>
+                                <p class="text-sm font-bold text-indigo-900">Active Work</p>
+                                <p class="text-xs text-indigo-700">Keep up the great momentum!</p>
                             </div>
                         </div>
                         <span class="text-2xl font-black text-indigo-600">{{ pending_task }}</span>
+                    </div>
+
+                    <div class="pt-4">
+                        <h4 class="text-sm font-bold text-slate-700 uppercase mb-4 tracking-wider">Security & Privacy</h4>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="{% url 'reset_password' %}" class="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">
+                                
+                                Reset Password 🔑
+                            </a>
+                            
+                            <a href="{% url 'logout' %}" class="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-red-50 text-red-600 rounded-xl font-bold hover:bg-red-600 hover:text-white transition-all">
+                                Logout
+                            </a>
+                        </div>
                     </div>
 
                     <div class="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <p class="text-xs text-amber-800 font-medium leading-relaxed">
+                        <p class="text-xs text-amber-800 font-medium">
                             Profile editing is currently disabled. It will be enabled in a future update.
                         </p>
                     </div>
