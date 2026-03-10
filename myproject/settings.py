@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-y4cdt7f=chk3=-qhh4eod-+m8h)l*hy*7w-f3+f0yvannfqv7e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,8 +92,10 @@ DATABASES = {
         'USER':os.getenv('DB_USER'),
         'PASSWORD':os.getenv('DB_PASSWORD'),
         'HOST':os.getenv('DB_HOST'),
-        'PORT':os.getenv('DB_PORT')
-
+        'PORT':os.getenv('DB_PORT'),
+        'OPTIONS': {
+            'ssl': {'ssl-mode': 'REQUIRED'}
+        }
     }
 }
 
@@ -135,3 +138,5 @@ STATIC_URL = 'static/'
 
 
 TAILWIND_APP_NAME = 'theme'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
