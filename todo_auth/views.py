@@ -112,3 +112,34 @@ def reset_password(request):
     return render(request,'reset_password.html')
 
 
+def forgot(request):
+    if request.method == 'POST':
+
+        username = request.POST.get('username')
+
+        if 'new_pasw' not in request.POST:
+            try:
+                User.objects.get(username=username)
+                return render(request, 'forgot.html', {
+                    'correct': True,
+                    'username': username
+                })
+            except User.DoesNotExist:
+                return render(request, 'forgot.html', {
+                    'error': 'Username not found'
+                })
+
+        else:
+            password = request.POST.get('new_pasw')
+
+            try:
+                user = User.objects.get(username=username)
+                user.set_password(password)
+                user.save()
+                return redirect('login')
+            except User.DoesNotExist:
+                return render(request, 'forgot.html', {
+                    'error': 'User not found'
+                })
+
+    return render(request, 'forgot.html')
